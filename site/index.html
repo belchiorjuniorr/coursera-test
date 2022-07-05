@@ -1,9 +1,215 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title> Ola Senai!</title>
+<html lang="pt-br"><head>
+<meta charset="utf-8">
+<title>JavaScript Formulario Validação</title>
+<meta name="keywords" content="example, JavaScript Form Validation, Sample registration form" />
+<meta name="description" content="This document is an example of JavaScript Form Validation using a sample registration form. " />
+<style type='text/css' />
+h1 {
+margin-left: 70px;
+}
+form li {
+list-style: none;
+margin-bottom: 5px;
+}
+
+form ul li label{
+float: left;
+clear: left;
+width: 100px;
+text-align: right;
+margin-right: 10px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+form ul li input, select, span {
+float: left;
+margin-bottom: 10px;
+}
+
+form textarea {
+float: left;
+width: 350px;
+height: 150px;
+}
+
+[type="submit"] {
+clear: left;
+margin: 20px 0 0 230px;
+font-size:18px
+}
+</style>
+<script>
+//validação usuário
+function Usuario_Validacao(){
+'use strict';
+var userid_name = document.getElementById("userid");
+var userid_value = document.getElementById("userid").value;
+var userid_length = userid_value.length;
+if(userid_length<7 || userid_length>12)
+{
+document.getElementById('uid_err').innerHTML ='Não pode ter menos que 7 caracteres e nem mais que 12.';
+userid_name.focus();
+document.getElementById('uid_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('uid_err').innerHTML = 'Usuário válido';
+document.getElementById('uid_err').style.color = "#00AF33";
+}
+}
+//validação senha
+function Senha_Validacao(){
+'use strict';
+var passid_name = document.getElementById("passid");
+var passid_value = document.getElementById("passid").value;
+var passid_length = passid_value.length;
+if(passid_length<6)
+{
+document.getElementById('passwd_err').innerHTML = 'Senha minimo 6 caracteres.';
+passid_name.focus();
+document.getElementById('passwd_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('passwd_err').innerHTML = 'Senha válida';
+document.getElementById('passwd_err').style.color = "#00AF33";
+}
+}
+//password validation ends
+//user name validation starts
+function Nome_Validacao(){
+'use strict';
+var username_name = document.getElementById("username");
+var username_value = document.getElementById("username").value;
+var username_length = username_value.length;
+var letters = /^[0-9a-zA-Z]+$/;
+if(username_length < 4 || !username_value.match(letters))
+{
+document.getElementById('name_err').innerHTML = 'Nome tem que ter no mínimo 4 caracteres e alfanúmericos apenas.';
+username_name.focus();
+document.getElementById('name_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('name_err').innerHTML = 'Nome válido';
+document.getElementById('name_err').style.color = "#00AF33";
+}
+}
+//user name validation ends
+//country validation starts
+function Pais_Validacao(){
+'use strict';
+var country_name = document.getElementById("country");
+var country_value = document.getElementById("country").value;
+if(country_value === "Default" || country_value === "--")
+{
+document.getElementById('country_err').innerHTML = 'Você deve selecionar um país.';
+country_name.focus();
+document.getElementById('country_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('country_err').innerHTML = 'País selecionado.';
+document.getElementById('country_err').style.color = "#00AF33";
+}
+}
+//country validation ends
+//zip validation starts
+function Postal_Validacao(){
+'use strict';
+var numbers = /^[0-9]+$/;
+var zip_name = document.getElementById("zip");
+var zip_value = document.getElementById("zip").value;
+var zip_length = zip_value.length;
+if(!zip_value.match(numbers) || zip_length !== 5)
+{
+document.getElementById('zip_err').innerHTML = 'Apenas números'
+zip_name.focus();
+document.getElementById('zip_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('zip_err').innerHTML = 'Código Postal preenchido.';
+document.getElementById('zip_err').style.color = "#00AF33";
+}
+}
+//zip validation ends
+//email validation starts
+function Email_Validacao(){
+'use strict';
+var mailformat = /^\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})+$/;
+var email_name = document.getElementById("email");
+var email_value = document.getElementById("email").value;
+var email_length = email_value.length;
+if(!email_value.match(mailformat) || email_length === 0)
+{
+document.getElementById('email_err').innerHTML = 'Formato de email inválido.';
+email_name.focus();
+document.getElementById('email_err').style.color = "#FF0000";
+}
+else
+{
+document.getElementById('email_err').innerHTML = 'Email válido.';
+document.getElementById('email_err').style.color = "#00AF33";
+}
+}
+//email validation ends
+//gender validation starts
+function Genero_Validacao(){
+'use strict';
+if ( (document.getElementById("msex").checked === false) && (document.getElementById("fsex").checked === false)){
+document.getElementById('gender_err').innerHTML = 'Por favor selecione um genero';
+document.getElementById('gender_err').style.color = "#FF0000";
+document.getElementById("msex").checked = true;
+}
+else
+{
+document.getElementById('gender_err').innerHTML = 'Genero selecionado';
+document.getElementById('gender_err').style.color = "#00AF33";
+}
+}
+//gender validation ends
+
+</script>
 </head>
 <body>
-	<h1>Olá Senai!</h1>
+<h1>Formulário de Cadastros</h1>
+<form name='registration'>
+<ul>
+<li><label for="userid">Usuário:</label></li>
+<li><input type="text" name="userid" id="userid" size="12" onBlur="Usuario_Validacao();"/><span id="uid_err"></span></li>
+<li><label for="passid">Senha:</label></li>
+<li><input type="password" name="passid" id="passid" size="12" onBlur="Senha_Validacao();"/><span id="passwd_err"></span></li>
+<li><label for="username">Nome:</label></li>
+<li><input type="text" name="username" id="username" size="50" onBlur="Nome_Validacao();" /><span id="name_err"></span></li>
+<li><label for="address">Endereço:</label></li>
+<li><input type="text" name="address" id="address" size="50" /><span id="add_err"></span></li>
+<li><label for="country">País:</label></li>
+<li><select id="country" name="country" onBlur="Pais_Validacao();">
+<option selected="" value="Default">(Por favor selecione um País)</option>
+<option value="--">nenhum</option>
+<option value="BR">Brasil</option>
+<option value="AL">Argentina</option>
+<option value="ES">Estados Unidos</option>
+<option value="AS">Russia</option>
+<option value="AD">China</option>
+</select><span id="country_err"></span></li>
+<li><label for="zip">Código Postal:</label></li>
+<li><input type="text" name="zip" id="zip" onBlur="Postal_Validacao();" /><span id="zip_err"></span></li>
+<li><label for="email">Email:</label></li>
+<li><input type="text" name="email" id="email" size="50" onBlur="Email_Validacao();"/><span id="email_err"></span></li>
+<li><label id="gender">Sexo:</label></li>
+<li><input type="radio" name="msex" id="msex" value="Male" onBlur="Genero_Validacao();" /><span>Masculino</span></li>
+<li><input type="radio" name="fsex" id="fsex" value="Female" /><span>Feminino</span><span id="gender_err"></span></li>
+<li><label>Linguagem:</label></li>
+<li><input type="checkbox" name="en" value="en" checked /><span>Portugues</span></li>
+<li><input type="checkbox" name="nonen" value="noen" /><span>Inglês</span></li>
+<li><label for="desc">Sobre:</label></li>
+<li><textarea name="desc" id="desc"></textarea></li>
+<li><input type="submit" name="Registrar" value="Registrar" /></li>
+</ul>
+</form>
 </body>
 </html>
